@@ -11,7 +11,7 @@ public class PlayerCollide : MonoBehaviour
     public AudioSource soundPlayer;
 
     private string Victory = "Victory";
-    private string Level2 = "Level2";
+    private string Level2Start = "Level2Start";
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class PlayerCollide : MonoBehaviour
 
         if(collision.gameObject.name == "Teleport")
         {
-            SceneManager.LoadScene(Level2);
+            SceneManager.LoadScene(Level2Start);
         }
 
         if (collision.gameObject.name == "Goal")
