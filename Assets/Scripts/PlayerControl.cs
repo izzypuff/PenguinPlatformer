@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour
     public float gravityFall = 40f;
     bool jump = false;
     bool doubleJump = false;
+    public AudioSource soundPlayer;
 
     [Header("Components")]
     //rigid body
@@ -177,6 +178,7 @@ public class PlayerControl : MonoBehaviour
         //if jumping
         if (jump)
         {
+            soundPlayer.Play();
             juiceEvents.JumpJuice(horizontalMove);
             //add force
             myBody.AddForce(Vector2.up * jumpLimit, ForceMode2D.Impulse);
