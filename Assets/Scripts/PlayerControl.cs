@@ -55,8 +55,10 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if not dead
         if (!dead)
         {
+            //check for h input and v input
             CheckHInput();
             CheckVInput();
         }
@@ -90,7 +92,7 @@ public class PlayerControl : MonoBehaviour
             myAnim.SetBool("Walking", false);
         }
     }
-       
+    //checks if pressing space and sets movement
     void CheckVInput()
     {
         //if jump button (space)
@@ -117,23 +119,33 @@ public class PlayerControl : MonoBehaviour
     //check if falled out of bounds
     public void StartReset(CinemachineImpulseSource source)
     {
+        //stop moving
         StopPhysics();
+        //player is dead
         dead = true;
+        //start fall death juice
         juiceEvents.FallDieJuiceStart(source);
     }
 
+    //stop moving
     public void StopPhysics()
     {
+        //normal grav
         myBody.gravityScale = 1f;
+        //no movement
         myBody.velocity = new Vector3(0f, 0f, 0f);
     }
 
+    //reset position
     public void ResetPos()
     {
+        //not dead
         dead = false;
+        //set current pos to set reset pos
         transform.position = resetPos.position;
     }
 
+    //horizontal movement
     float HMove()
     {
         juiceEvents.HMoveJuice(horizontalMove);
@@ -142,14 +154,16 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if not dead
         if (!dead)
         {
+            //set movement speed to horizontal movement based on key
             float moveSpeed = HMove();
-
+            //controls what happens during jump
             StartJump();
-
+            //set vertical movement to if jump is pressed
             VMove();
-
+            //checks if on ground
             GroundCheck();
 
             //set velocity to set velocity
@@ -157,6 +171,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    //checks if character is jumping or falling and sets gravity
     void VMove()
     {
         //is character is jumping
@@ -173,6 +188,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    //if jump is activated
     void StartJump()
     {
         //if jumping
@@ -189,6 +205,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    //checks if player is on ground
     void GroundCheck()
     {
         //create raycast
@@ -197,9 +214,12 @@ public class PlayerControl : MonoBehaviour
         //if touching ground obj
         if (hit.collider != null && hit.transform.name == "Ground")
         {
+            //if player is not on ground or landed
             if (!landed && !grounded)
             {
+                //creates land particles
                 juiceEvents.LandJuice(horizontalMove);
+                //now player is landed
                 landed = true;
             }
             //grounded is true
