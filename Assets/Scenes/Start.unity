@@ -5586,7 +5586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A PENGUIN CAN''T FLY,
+  m_text: 'PENGUINS CAN''T FLY,
 
     BUT THEY CAN DOUBLE JUMP'
   m_isRightToLeft: 0

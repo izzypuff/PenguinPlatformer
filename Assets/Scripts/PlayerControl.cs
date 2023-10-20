@@ -12,13 +12,13 @@ public class PlayerControl : MonoBehaviour
     public float speed = 3f;
 
     //jumping
-    bool grounded = false;
+    public bool grounded = false;
     public float castDist = 0.2f;
     public float jumpLimit = 2f;
     public float gravityScale = 2f;
     public float gravityFall = 40f;
-    bool jump = false;
-    bool doubleJump = false;
+    public bool jump = false;
+    public int jumpNumber = 1;
     public AudioSource soundPlayer;
 
     [Header("Components")]
@@ -99,18 +99,29 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             //if grounded or double jump is true
-            if (grounded || doubleJump)
+            if (grounded)
             {
                 //jump is true
                 jump = true;
-                //double jump is not true
-                doubleJump = !doubleJump;
+                //one jump left
+                //jumpNumber ;
+                //animation jumping boolean is true
+                myAnim.SetBool("Jumping", true);
+            }
+
+            if (jumpNumber >= 1)
+            {
+                //can double jump
+                jump = true;
+                //no more jumps left
+                //jumpNumber --;
                 //animation jumping boolean is true
                 myAnim.SetBool("Jumping", true);
             }
         }
-        else
+        else if (jumpNumber <= 0)
         {
+            jump = false;
             //if not jumping, then jumping animation boolean is false
             myAnim.SetBool("Jumping", false);
         }
@@ -198,6 +209,7 @@ public class PlayerControl : MonoBehaviour
             juiceEvents.JumpJuice(horizontalMove);
             //add force
             myBody.AddForce(Vector2.up * jumpLimit, ForceMode2D.Impulse);
+            jumpNumber--;
             //stop jumping
             jump = false;
             //not landed
@@ -214,6 +226,7 @@ public class PlayerControl : MonoBehaviour
         //if touching ground obj
         if (hit.collider != null && hit.transform.name == "Ground")
         {
+            jumpNumber = 1;
             //if player is not on ground or landed
             if (!landed && !grounded)
             {
