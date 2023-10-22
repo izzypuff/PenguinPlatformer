@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundPlayer: {fileID: 1383024338}
+  myBody: {fileID: 218337370}
 --- !u!70 &218337367
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -453,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalMove: 0
   speed: 6
+  frozen: 0
   grounded: 0
   castDist: 1
   jumpLimit: 10
