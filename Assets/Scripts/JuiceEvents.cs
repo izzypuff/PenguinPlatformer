@@ -48,12 +48,18 @@ public class JuiceEvents : MonoBehaviour
         //if dead to fall
         if (fallDead)
         {
+            //trail disables
+            trailRenderer.emitting = false;
+
             //use fall juice
             FallDieJuice();
         }
         //if die to enemy
         if (enemyDead)
         {
+            //trail disables
+            trailRenderer.emitting = false;
+
             //use enemy juice
             EnemyDieJuice();
         }

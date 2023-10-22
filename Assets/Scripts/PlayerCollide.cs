@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollide : MonoBehaviour
 {
+    //access other scripts
     JuiceEvents juiceEvents;
     PlayerControl playerControl;
+
     //audio for death
     public AudioSource soundPlayer;
 
     //access scenes
-    private string Victory = "Victory";
+    private string EndStart = "EndStart";
     private string Level2Start = "Level2Start";
+
+    //rigid body
+    public Rigidbody2D myBody;
 
     private void Start()
     {
@@ -49,7 +54,7 @@ public class PlayerCollide : MonoBehaviour
         if (collision.gameObject.name == "Goal")
         {
             //load victory scene
-            SceneManager.LoadScene(Victory);
+            SceneManager.LoadScene(EndStart);
         }
     }
 

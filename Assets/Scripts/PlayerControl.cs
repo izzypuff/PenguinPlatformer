@@ -10,7 +10,8 @@ public class PlayerControl : MonoBehaviour
     //horizontal movement
     float horizontalMove;
     public float speed = 3f;
-
+    //bool to not move
+    public bool frozen = false;
     //jumping
     public bool grounded = false;
     public float castDist = 0.2f;
@@ -69,6 +70,12 @@ public class PlayerControl : MonoBehaviour
     {
         //horizontal movement (A&D, left&right)
         horizontalMove = Input.GetAxis("Horizontal");
+
+        if (frozen)
+        {
+            horizontalMove = 0;
+        }
+
         //if horizontal movement is happening to the right
         if (horizontalMove > 0.1f)
         {
@@ -103,8 +110,8 @@ public class PlayerControl : MonoBehaviour
             {
                 //jump is true
                 jump = true;
-                //one jump left
-                //jumpNumber ;
+                //play jump sound
+                soundPlayer.Play();
                 //animation jumping boolean is true
                 myAnim.SetBool("Jumping", true);
             }
@@ -113,8 +120,8 @@ public class PlayerControl : MonoBehaviour
             {
                 //can double jump
                 jump = true;
-                //no more jumps left
-                //jumpNumber --;
+                //play jump sound
+                soundPlayer.Play();
                 //animation jumping boolean is true
                 myAnim.SetBool("Jumping", true);
             }
@@ -205,7 +212,6 @@ public class PlayerControl : MonoBehaviour
         //if jumping
         if (jump)
         {
-            soundPlayer.Play();
             juiceEvents.JumpJuice(horizontalMove);
             //add force
             myBody.AddForce(Vector2.up * jumpLimit, ForceMode2D.Impulse);
@@ -226,6 +232,7 @@ public class PlayerControl : MonoBehaviour
         //if touching ground obj
         if (hit.collider != null && hit.transform.name == "Ground")
         {
+            myAnim.SetBool("Jumping", false);
             jumpNumber = 1;
             //if player is not on ground or landed
             if (!landed && !grounded)
