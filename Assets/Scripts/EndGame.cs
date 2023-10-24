@@ -19,7 +19,7 @@ public class EndGame : MonoBehaviour
     //control timer that changes scene
     bool timerStart;
     float timer = 0f;
-    float maxTime = 8000f;
+    float maxTime = 250f;
     bool changeScene = false;
 
     private void Start()

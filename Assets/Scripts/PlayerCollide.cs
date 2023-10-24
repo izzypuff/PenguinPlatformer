@@ -44,14 +44,14 @@ public class PlayerCollide : MonoBehaviour
         }
 
         //if colliding with teleport for next level
-        if(collision.gameObject.name == "Teleport")
+        if(collision.gameObject.name == "Teleport" && !PlayerControl.dead)
         {
             //load next level scene
             SceneManager.LoadScene(Level2Start);
         }
 
         //if colliding with end goal
-        if (collision.gameObject.name == "Goal")
+        if (collision.gameObject.name == "Goal" && !PlayerControl.dead)
         {
             //load victory scene
             SceneManager.LoadScene(EndStart);
